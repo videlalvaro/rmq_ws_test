@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RabbitMQ Websockets Plugin - Basic Test</title>
+    <link rel="icon" href="/favicon.ico">
+  </head>
+  <body>
+    <h1>RabbitMQ Websockets Plugin - Basic Test</h1>
+    <ul id="messages"></ul>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/rmqws.js"></script>
+    <script type="text/javascript">
+        (function($) {
+
+            function displayMessage(message) {
+                $("#messages").append("<li>"+message+"</li>").attr({ scrollTop: $("#messages").attr("scrollHeight") });
+            };
+
+            var RMQ_WS_PORT = 8080;
+
+            $(document).ready(function() {
+              var rmqws = new RabbitMQWs();
+
+              rmqws.start(window.location.hostname + ':' + RMQ_WS_PORT);
+
+              $(rmqws).bind('rmqws-onconnection-status', function(event, status){
+                  if(status == 'connected') {
+                      rmqws.switchExchange('amq.fanout', "");
+                  }
+                  displayMessage(status);
+              });
+
+              $(rmqws).bind('rmqws-onmessage', function(event, msg){
+                  displayMessage(msg);
+              });
+
+              $(rmqws).bind('rmqws-onerror', function(event, error){
+                  displayMessage(error);
+              });
+          });
+        })(jQuery);
+    </script>
+  </body>
+</html>

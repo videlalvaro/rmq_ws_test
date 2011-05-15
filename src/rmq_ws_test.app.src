@@ -1,0 +1,18 @@
+{application, rmq_ws_test,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {modules, [
+                rmq_ws_test,
+                rmq_ws_test_app,
+                rmq_ws_test_rest,
+                rmq_ws_test_sup
+            ]},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { rmq_ws_test_app, []}},
+  {env, [{misultin_port, 8081}]}
+ ]}.
