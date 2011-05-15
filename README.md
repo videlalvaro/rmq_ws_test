@@ -10,7 +10,7 @@ Sample project that shows a simple HTML page that gets messages via Websockets f
 
 ## Usage ##
 
-  $ ./start-dev.sh
+    $ ./start-dev.sh
 
 Then point your browser to [http://localhost:8081](http://localhost:8081).
 
